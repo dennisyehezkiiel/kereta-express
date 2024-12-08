@@ -1,8 +1,10 @@
-import PaymentHistoryCard from "@/components/card/payment-history";
-import ScheduleCard from "@/components/card/schedule-card";
+import { getScheduleDetail } from "@/action/schedule";
 import SelectedTicket from "@/components/card/selected-ticket";
+import { ParamProps } from "@/interface/type";
 
-const PassangerInformation = () => {
+const PassangerInformation = async ({ searchParams }: ParamProps) => {
+  const scheduleDetail = await getScheduleDetail(searchParams.selected);
+  
   return (
     <div className="flex flex-col justify-center items-center space-y-4 w-full">
       <div className="flex flex-col justify-center space-y-6 pt-6">
@@ -48,7 +50,7 @@ const PassangerInformation = () => {
           </button>
         </div>
         <div className="space-y-4">
-          <SelectedTicket />
+          <SelectedTicket schedule={scheduleDetail?.[0]!} />
         </div>
       </div>
     </div>

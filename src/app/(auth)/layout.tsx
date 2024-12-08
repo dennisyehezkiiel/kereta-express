@@ -8,15 +8,13 @@ export const metadata: Metadata = {
   description: "Pusat pembelian tiket kereta api",
 };
 
-export default function ProtectedLayout({
+export default function PublicLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <div className="bg-slate-50 w-full min-h-screen space-y-12 pb-12">
-      <Navigation />
-      <UserLog />
+    <div className="flex justify-center bg-blue-100 w-full min-h-screen">
       {children}
     </div>
   );
