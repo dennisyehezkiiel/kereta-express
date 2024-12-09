@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import "toastify-js/src/toastify.css"
 
 export const metadata: Metadata = {
   title: "Kereta Express",

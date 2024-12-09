@@ -1,8 +1,9 @@
 "use client";
 
-import { forgotPasswordEmail, userSignup } from "@/action/authentication";
+import { forgotPasswordEmail } from "@/action/authentication";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Toastify from "toastify-js";
 
 const ForgetPasswordComponent = () => {
   const { push } = useRouter();
@@ -14,9 +15,12 @@ const ForgetPasswordComponent = () => {
 
   const handleSubmit = async () => {
     const response = await forgotPasswordEmail(formValue.email);
-    
+
     if (!response.error) {
-      push("/login");
+      Toastify({
+        text: "Berhasil mengirimkan link ubah password ke email anda",
+        className: "info",
+      }).showToast();
     }
   };
 
@@ -45,7 +49,7 @@ const ForgetPasswordComponent = () => {
           <div className="flex space-x-2">
             <button
               className="border border-gray-400 text-black rounded-lg py-3 w-full"
-              onClick={() => push('/login')}
+              onClick={() => push("/login")}
             >
               Batalkan
             </button>
