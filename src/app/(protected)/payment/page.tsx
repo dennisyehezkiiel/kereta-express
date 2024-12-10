@@ -23,7 +23,7 @@ const Payment = async ({ searchParams }: ParamProps) => {
         </div>
         <PaymentCard orderDetail={orderDetail?.[0]} />
       </div>
-      <UploadPayment />
+      <UploadPayment searchParams={searchParams} />
     </div>
   );
 };

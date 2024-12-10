@@ -1,23 +1,40 @@
 "use client";
 
+import { updateOrder } from "@/action/order";
+import { getCurrentPayment, insertPayment } from "@/action/payment";
 import { uploadImage } from "@/action/upload-file";
-import { useRef } from "react";
+import { ParamProps } from "@/interface/type";
+import { useRef, useState } from "react";
 import { BsBank } from "react-icons/bs";
 import { FaAngleRight } from "react-icons/fa6";
 import { LuWallet } from "react-icons/lu";
 import Toastify from "toastify-js";
 
-const UploadPayment = () => {
+const UploadPayment = ({ searchParams }: ParamProps) => {
+  const [paymentMethod, setPaymentMethod] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     const responseUpload = await uploadImage(file!, "images");
     if (responseUpload) {
-      Toastify({
-        text: "Berhasil mengupload bukti pembayaran",
-        className: "info",
-      }).showToast();
+      const paymentRes = await insertPayment({
+        paymentMethod: paymentMethod,
+        paymentFile: responseUpload,
+        status: "4789131d-116a-4395-a635-49c846170a60",
+      });
+      if (!paymentRes) {
+        const currentPayment = await getCurrentPayment();
+        const updateRes = await updateOrder(searchParams.orderId, {
+          id_pembayaran: currentPayment?.[0]?.id_pembayaran,
+          id_status: "4789131d-116a-4395-a635-49c846170a60",
+        });
+
+        Toastify({
+          text: "Pembayaran berhasil",
+          className: "info",
+        }).showToast();
+      }
     }
   };
 
@@ -33,7 +50,10 @@ const UploadPayment = () => {
         <p className="text-[#202020] font-[500]">Pilih Jenis Pembayaran</p>
         <div className="space-y-4 w-full">
           <button
-            onClick={() => fileInputRef?.current?.click()}
+            onClick={() => {
+              setPaymentMethod("Transfer Bank");
+              fileInputRef?.current?.click();
+            }}
             className="flex justify-between items-center bg-white border rounded-lg p-3 w-full"
           >
             <div className="flex items-center space-x-3">
@@ -50,7 +70,10 @@ const UploadPayment = () => {
             <FaAngleRight color="#202020" />
           </button>
           <button
-            onClick={() => fileInputRef?.current?.click()}
+            onClick={() => {
+              setPaymentMethod("Dompet Digital");
+              fileInputRef?.current?.click();
+            }}
             className="flex justify-between items-center bg-white border rounded-lg p-3 w-full"
           >
             <div className="flex items-center space-x-3">

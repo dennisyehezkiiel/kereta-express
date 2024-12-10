@@ -54,3 +54,11 @@ export async function getOrderDetail(orderId: string) {
     .eq("id_pemesanan", orderId);
   return history;
 }
+
+export async function updateOrder(orderId: string, payload: Record<string | string, any>) {
+  const { data: history } = await supabase
+    .from("pemesanan")
+    .update(payload)
+    .eq("id_pemesanan", orderId);
+  return history;
+}
