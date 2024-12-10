@@ -1,6 +1,9 @@
+import { getPaymentHistory } from "@/action/order";
 import PaymentHistoryCard from "@/components/card/payment-history";
 
-const PaymentHistory = () => {
+const PaymentHistory = async () => {
+  const historyList = await getPaymentHistory();
+
   return (
     <div className="flex flex-col justify-center items-center space-y-4 w-full">
       <div className="flex flex-col justify-center space-y-6 pt-6">
@@ -8,9 +11,9 @@ const PaymentHistory = () => {
           Riwayat Pemesanan
         </p>
         <div className="space-y-4">
-          <PaymentHistoryCard />
-          <PaymentHistoryCard />
-          <PaymentHistoryCard />
+          {historyList?.map((el, index) => (
+            <PaymentHistoryCard key={index} history={el} />
+          ))}
         </div>
       </div>
     </div>
