@@ -18,7 +18,7 @@ export async function insertOrder({
   return error;
 }
 
-export async function getPaymentHistory() {
+export async function getOrderHistory() {
   const cookiePros = cookies();
   const cookieEmail = cookiePros.get("email")?.value;
 
@@ -28,5 +28,26 @@ export async function getPaymentHistory() {
       "*, id_status(*), id_jadwal_keberangkatan(*, id_kereta(*)), id_data_penumpang(*), id_pembayaran(*)"
     )
     .ilike("email", cookieEmail!);
+  return history;
+}
+
+export async function getCurrentOrder() {
+  const { data: history } = await supabase
+    .from("pemesanan")
+    .select(
+      "*, id_status(*), id_jadwal_keberangkatan(*, id_kereta(*)), id_data_penumpang(*), id_pembayaran(*)"
+    )
+    .order("created_at", { ascending: false })
+    .limit(1);
+  return history;
+}
+
+export async function getOrderDetail(orderId: string) {
+  const { data: history } = await supabase
+    .from("pemesanan")
+    .select(
+      "*, id_status(*), id_jadwal_keberangkatan(*, id_kereta(*)), id_data_penumpang(*), id_pembayaran(*)"
+    )
+    .eq("id_pemesanan", orderId);
   return history;
 }

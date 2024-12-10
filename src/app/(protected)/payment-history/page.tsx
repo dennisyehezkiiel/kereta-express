@@ -1,8 +1,8 @@
-import { getPaymentHistory } from "@/action/order";
+import { getOrderHistory } from "@/action/order";
 import PaymentHistoryCard from "@/components/card/payment-history";
 
 const PaymentHistory = async () => {
-  const historyList = await getPaymentHistory();
+  const historyList = await getOrderHistory();
 
   return (
     <div className="flex flex-col justify-center items-center space-y-4 w-full">

@@ -1,6 +1,6 @@
 "use client";
 
-import { insertOrder } from "@/action/order";
+import { getCurrentOrder, insertOrder } from "@/action/order";
 import { getPassanger, insertPassangerInformation } from "@/action/passanger";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -30,7 +30,8 @@ const PassangerInformationForm = ({ schedule }: { schedule: ScheduleList }) => {
         scheduleId: schedule.id_jadwal_keberangkatan,
         passangerId: passanger?.[0]?.id_data_penumpang,
       });
-      !orderResponse && push("/payment");
+      const currentOrder = await getCurrentOrder()
+      !orderResponse && push(`/payment?orderId=${currentOrder?.[0]?.id_pemesanan}`);
     }
   };
 

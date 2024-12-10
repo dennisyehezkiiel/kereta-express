@@ -8,8 +8,6 @@ const PassangerInformation = async ({ searchParams }: ParamProps) => {
   const scheduleDetail = await getScheduleDetail(searchParams.selected);
   const passanger = await getPassanger()
   
-  console.log(passanger, ">>cek pass");
-  
   return (
     <div className="flex flex-col justify-center items-center space-y-4 w-full">
       <div className="flex flex-col justify-center space-y-6 pt-6">
