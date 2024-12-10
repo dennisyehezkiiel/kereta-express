@@ -14,7 +14,7 @@ export default function PublicLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex justify-center bg-blue-100 w-full min-h-screen">
+    <div className="flex justify-center bg-[url('/public-background.jpeg')] bg-no-repeat bg-cover bg-center w-full min-h-screen">
       {children}
     </div>
   );
