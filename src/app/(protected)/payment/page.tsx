@@ -1,10 +1,8 @@
-import { BsBank } from "react-icons/bs";
-import { FaAngleRight } from "react-icons/fa6";
 import PaymentCard from "@/components/card/payment-card";
-import { LuWallet } from "react-icons/lu";
 import { ParamProps } from "@/interface/type";
 import { getOrderDetail } from "@/action/order";
 import { formatToRupiah } from "@/lib/formatter";
+import UploadPayment from "./_component/payment-upload";
 
 const Payment = async ({ searchParams }: ParamProps) => {
   const orderDetail = await getOrderDetail(searchParams.orderId);
@@ -25,39 +23,7 @@ const Payment = async ({ searchParams }: ParamProps) => {
         </div>
         <PaymentCard orderDetail={orderDetail?.[0]} />
       </div>
-      <div className="flex flex-col justify-start w-[900px] space-y-3">
-        <p className="text-[#202020] font-[500]">Pilih Jenis Pembayaran</p>
-        <div className="space-y-4 w-full">
-          <button className="flex justify-between items-center bg-white border rounded-lg p-3 w-full">
-            <div className="flex items-center space-x-3">
-              <BsBank size={32} color="#202020" />
-              <div className="flex flex-col justify-start items-start text-start">
-                <span className="text-[#202020] text-end font-medium">
-                  Transfer Bank
-                </span>
-                <span className="text-[12px] text-[#808080] font-medium">
-                  Via Mandiri
-                </span>
-              </div>
-            </div>
-            <FaAngleRight color="#202020" />
-          </button>
-          <button className="flex justify-between items-center bg-white border rounded-lg p-3 w-full">
-            <div className="flex items-center space-x-3">
-              <LuWallet size={32} color="#202020" />
-              <div className="flex flex-col justify-start items-start text-start">
-                <span className="text-[#202020] text-end font-medium">
-                  Dompet Digital
-                </span>
-                <span className="text-[12px] text-[#808080] font-medium">
-                  Via Dana
-                </span>
-              </div>
-            </div>
-            <FaAngleRight color="#202020" />
-          </button>
-        </div>
-      </div>
+      <UploadPayment />
     </div>
   );
 };

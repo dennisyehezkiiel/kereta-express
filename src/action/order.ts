@@ -9,10 +9,13 @@ export async function insertOrder({
   scheduleId: string;
   passangerId: string;
 }) {
+  const cookiePros = cookies();
+  const cookieEmail = cookiePros.get("email")?.value;
   const { error } = await supabase.from("pemesanan").insert({
     id_status: "9420e0c8-3dad-4364-b01f-a447b946c580",
     id_jadwal_keberangkatan: scheduleId,
     id_data_penumpang: passangerId,
+    email: cookieEmail,
   });
 
   return error;
