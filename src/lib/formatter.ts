@@ -3,5 +3,5 @@ export function formatToRupiah(amount: number) {
     style: 'currency',
     currency: 'IDR',
     minimumFractionDigits: 0,
-  }).format(amount).replace(/\s/g, ''); // Removes spaces
+  }).format(amount).replace(/\s/g, '');
 }
